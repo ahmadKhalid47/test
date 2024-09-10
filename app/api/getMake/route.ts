@@ -1,5 +1,5 @@
 import connectDb from "../../models/connectDb";
-import MakeModel from "@/app/models/Make";
+import MakeModel from "../../models/Make";
 import { NextResponse } from "next/server";
 
 // Disable cache for this API route
