@@ -1,13 +1,10 @@
 "use client";
-import { useState, useEffect } from "react";
 import { FaAsterisk, FaTimes } from "react-icons/fa";
 import React from "react";
+import { useState, useEffect } from 'react';
 
-interface dataType {
-  data: Array<object>;
-}
 
-export default function ListView({ data }: dataType) {
+export default function ListView(data ) {
   const [popup, setPopup] = useState(false);
   const [deleteManyPopup, setDeleteManyPopup] = useState(false);
   const [editPopup, setEditPopup] = useState(false);
@@ -60,7 +57,7 @@ export default function ListView({ data }: dataType) {
               Actions{" "}
             </div>
           </div>
-          {paginatedData.map((item: object | Array<object>, index: number) => (
+          {paginatedData.map((item, index) => (
             <div key={index} className="w-full">
               <div
                 className={`w-full h-[43px] flex justify-between items-center font-[400] text-[12px] sm:text-[14px] leading-[17px text-center ${

@@ -6,7 +6,7 @@ import ListView from "./ListView";
 import React from "react";
 
 export default function Vehicles() {
-  const [vehiclesData, setVehiclesData] = useState<object[]>([]);
+  const [vehiclesData, setVehiclesData] = useState([]);
   const [popup, setPopup] = useState(false);
   const [make, setMake] = useState("");
   const [reloader, setreloader] = useState("");
@@ -28,7 +28,7 @@ export default function Vehicles() {
     getData();
   }, [reloader]);
 
-  async function save(action: string) {
+  async function save(action) {
     if (make.trim() === "") {
       alert("Please fill the input");
       return;

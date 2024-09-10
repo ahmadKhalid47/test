@@ -2,7 +2,7 @@ import connectDb from "@/app/registration/connectDb";
 import MakeModel from "../../models/Make";
 import { NextResponse } from "next/server";
 
-export async function POST(req: Request) {
+export async function POST(req) {
   try {
     let { make } = await req.json();
     connectDb();
