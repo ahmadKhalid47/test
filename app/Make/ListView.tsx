@@ -21,7 +21,7 @@ export default function ListView({ data }: dataType) {
   useEffect(() => {
     setSortedData(data);
   }, [data]);
-  const itemsPerPage = 20;
+  const itemsPerPage = 100;
 
   // Slice the data for the current page
   const paginatedData = sortedData.slice(
