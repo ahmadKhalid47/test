@@ -1,5 +1,7 @@
 import mongoose from "mongoose";
 
 export default async function connectDb() {
-  await mongoose.connect(process.env.DATABASE_URL);
+  await mongoose.connect(
+    "mongodb+srv://ahmadrazakhalid110:RM1dpnTg0GoXyy4A@cluster0.4fv7dem.mongodb.net/"
+  );
 }

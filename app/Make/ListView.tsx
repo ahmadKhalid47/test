@@ -1,20 +1,17 @@
+"use client";
 import { useState, useEffect } from "react";
 import { FaAsterisk, FaTimes } from "react-icons/fa";
+import React from "react";
 
 interface dataType {
-  data: Array<Object>;
+  data: Array<object>;
 }
 
 export default function ListView({ data }: dataType) {
   const [popup, setPopup] = useState(false);
   const [deleteManyPopup, setDeleteManyPopup] = useState(false);
   const [editPopup, setEditPopup] = useState(false);
-  const [itemToDelete, setItemToDelete] = useState(null);
-  const [itemToDeleteMany, setItemToDeleteMany] = useState<any>([]);
-  const [itemToEdit, setItemToEdit] = useState(null);
-  const [deleteLoading, setDeleteLoading] = useState(false);
-  const [editLoading, setEditLoading] = useState(false);
-  const [page, setPage] = useState(1);
+  const page = 1;
   const [sortedData, setSortedData] = useState(data);
   const [make, setMake] = useState("");
 
@@ -29,14 +26,10 @@ export default function ListView({ data }: dataType) {
     page * itemsPerPage
   );
 
-  const allIds = data.map((item: any) => item?._id);
-
   return (
     <div className="w-full h-fit mt-4 relative">
       <h3
-        className={`w-full flex justify-between items-center font-[400]  text-[14px] sm:text-[18px] leading-[21px] ${
-          itemToDeleteMany.length < 1 ? "text-grey" : "text-main-blue"
-        }  `}
+        className={`w-full flex justify-between items-center font-[400]  text-[14px] sm:text-[18px] leading-[21px] text-main-blue`}
       >
         <span>
           <button
@@ -44,7 +37,6 @@ export default function ListView({ data }: dataType) {
             onClick={() => {
               setDeleteManyPopup(true);
             }}
-            disabled={itemToDeleteMany.length < 1 ? true : false}
           >
             Delete Multiple
           </button>
@@ -55,14 +47,7 @@ export default function ListView({ data }: dataType) {
           <div className="w-full h-[43px] flex justify-between items-center font-[600] text-[12px] sm:text-[14px] rounded-t-[10px] leading-[17px text-center border-b-2 border-grey">
             <div className="text-center w-[6%] flex justify-center items-center ">
               <div
-                className={`w-[15px] h-[15px] rounded-[1px] ${
-                  itemToDeleteMany.length !== data.length ? "" : "bg-red-500"
-                } border-2 border-dark-grey`}
-                onClick={() => {
-                  setItemToDeleteMany(
-                    itemToDeleteMany.length !== data.length ? allIds : []
-                  );
-                }}
+                className={`w-[15px] h-[15px] rounded-[1px] ${"bg-red-500"} border-2 border-dark-grey`}
               ></div>
             </div>
             <div className="text-start pe-3 flex justify-start items-center w-[7%] cursor-pointer">
@@ -75,7 +60,7 @@ export default function ListView({ data }: dataType) {
               Actions{" "}
             </div>
           </div>
-          {paginatedData.map((item: any, index: number) => (
+          {paginatedData.map((item: object | Array<object>, index: number) => (
             <div key={index} className="w-full">
               <div
                 className={`w-full h-[43px] flex justify-between items-center font-[400] text-[12px] sm:text-[14px] leading-[17px text-center ${
@@ -84,11 +69,7 @@ export default function ListView({ data }: dataType) {
               >
                 <div className="text-center w-[6%] flex justify-center items-center ">
                   <div
-                    className={`w-[15px] h-[15px] rounded-[1px] ${
-                      itemToDeleteMany?.includes(item?._id)
-                        ? "bg-red-500"
-                        : ""
-                    } border-2 border-dark-grey`}
+                    className={`w-[15px] h-[15px] rounded-[1px] ${""} border-2 border-dark-grey`}
                   ></div>
                 </div>
                 <h5 className="text-start pe-5 w-[7%]">
@@ -96,7 +77,7 @@ export default function ListView({ data }: dataType) {
                     index + (page - 1) * itemsPerPage + 1
                   ).padStart(2, "0")}{" "}
                 </h5>
-                <h5 className="text-start pe-3 w-[70%]">{item?.make}</h5>
+                {/* <h5 className="text-start pe-3 w-[70%]">{item?.make}</h5> */}
                 <div
                   className="flex justify-start pe-3 gap-4 items-center w-[13%] h-full"
                   onClick={(event) => {
@@ -107,20 +88,11 @@ export default function ListView({ data }: dataType) {
                   <img
                     // src={edit.src}
                     className="cursor-pointer"
-                    onClick={() => {
-                      setEditPopup(true);
-                      setItemToEdit(item?._id);
-                      setMake(item?.make);
-                    }}
                   />
 
                   <img
                     // src={deleteIcon.src}
                     className="cursor-pointer"
-                    onClick={() => {
-                      setPopup(true);
-                      setItemToDelete(item?._id);
-                    }}
                   />
                 </div>
               </div>
@@ -143,11 +115,7 @@ export default function ListView({ data }: dataType) {
                       >
                         No
                       </button>
-                      <button
-                        className="w-[140px] py-2 md:py-0 h-fit md:h-[44px] rounded-[10px] bg-red-500 text-white  font-[500] text-[12px] xs:text-[14px] md:text-[18px] leading-[21px] text-center"
-                        disabled={deleteLoading}
-                      >
-                      </button>
+                      <button className="w-[140px] py-2 md:py-0 h-fit md:h-[44px] rounded-[10px] bg-red-500 text-white  font-[500] text-[12px] xs:text-[14px] md:text-[18px] leading-[21px] text-center"></button>
                     </div>
                   </div>
                 </div>
@@ -171,11 +139,7 @@ export default function ListView({ data }: dataType) {
                       >
                         No
                       </button>
-                      <button
-                        className="w-[140px] py-2 md:py-0 h-fit md:h-[44px] rounded-[10px] bg-red-500 text-white  font-[500] text-[12px] xs:text-[14px] md:text-[18px] leading-[21px] text-center"
-                        disabled={deleteLoading}
-                      >
-                      </button>
+                      <button className="w-[140px] py-2 md:py-0 h-fit md:h-[44px] rounded-[10px] bg-red-500 text-white  font-[500] text-[12px] xs:text-[14px] md:text-[18px] leading-[21px] text-center"></button>
                     </div>
                   </div>
                 </div>
@@ -216,11 +180,7 @@ export default function ListView({ data }: dataType) {
                       >
                         <FaTimes />
                       </button>
-                      <button
-                        className="w-[230px] py-2 md:py-0 h-fit md:h-[44px] rounded-[10px] bg-red-500 text-white  font-[500] text-[12px] xs:text-[14px] md:text-[18px] leading-[21px] text-center"
-                        disabled={editLoading}
-                      >
-                      </button>
+                      <button className="w-[230px] py-2 md:py-0 h-fit md:h-[44px] rounded-[10px] bg-red-500 text-white  font-[500] text-[12px] xs:text-[14px] md:text-[18px] leading-[21px] text-center"></button>
                     </div>
                   </div>
                 </div>
@@ -234,8 +194,7 @@ export default function ListView({ data }: dataType) {
           Showing {(page - 1) * itemsPerPage + 1} -{" "}
           {Math.min(page * itemsPerPage, data.length)} of {data.length} data{" "}
         </div>
-        <div className="font-[600] text-[10px] sm:text-[14px] leading-[17px]">
-        </div>
+        <div className="font-[600] text-[10px] sm:text-[14px] leading-[17px]"></div>
       </div>
     </div>
   );

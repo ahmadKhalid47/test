@@ -3,12 +3,10 @@ import { FaAsterisk, FaTimes } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import ListView from "./ListView";
- 
+import React from "react";
+
 export default function Vehicles() {
-  const [loading, setLoading] = useState<any>("");
-  const [dataLoading, setDataLoading] = useState<any>(true);
-  const [showError, setShowError] = useState(null);
-  const [vehiclesData, setVehiclesData] = useState<any[]>([]);
+  const [vehiclesData, setVehiclesData] = useState<object[]>([]);
   const [popup, setPopup] = useState(false);
   const [make, setMake] = useState("");
   const [reloader, setreloader] = useState("");
@@ -19,20 +17,12 @@ export default function Vehicles() {
   useEffect(() => {
     async function getData() {
       try {
-        setDataLoading(true);
         const result = await axios.get("/api/getMake", {
           headers: { "Cache-Control": "no-store" },
         });
-
-        if (result?.data?.data) {
-          setVehiclesData(result.data.data);
-        } else {
-          setShowError(result?.data?.error);
-        }
+        setVehiclesData(result.data.data);
       } catch (error) {
         console.log(error);
-      } finally {
-        setDataLoading(false);
       }
     }
     getData();
@@ -45,8 +35,7 @@ export default function Vehicles() {
     }
 
     try {
-      setLoading(action);
-      let result: any = await axios.post(`/api/saveMake`, {
+      const result = await axios.post(`/api/saveMake`, {
         make,
       });
       console.log(result);
@@ -58,16 +47,11 @@ export default function Vehicles() {
       setMake("");
     } catch (err) {
       console.log(err);
-    } finally {
-      setLoading("");
-    }
-  }
+    }  }
 
   return (
     <div
-      className={`${
-        true ? "nav-width" : "nav-closed-width"
-      } absolute right-0 w-fit h-fit mt-[90px] pt-5 transitions`}
+      className={`${"nav-closed-width"} absolute right-0 w-fit h-fit mt-[90px] pt-5 transitions`}
     >
       <div
         className={`w-full h-fit flex flex-col justify-start items-start gap-[0px] md:gap-[20px] pe-[10px] md:pe-[50px] ps-[10px] md:ps-[40px] pb-10`}
@@ -85,9 +69,8 @@ export default function Vehicles() {
               onClick={() => {
                 handleClick();
               }}
-              disabled={dataLoading}
             >
-              "Add New"
+              Add New
             </button>
           </div>
         </div>
@@ -133,14 +116,14 @@ export default function Vehicles() {
                   <button
                     className="w-[230px] py-2 md:py-0 h-fit md:h-[44px] rounded-[10px] bg-red-500 text-white  font-[500] text-[12px] xs:text-[14px] md:text-[18px] leading-[21px] text-center"
                     onClick={() => save("close")}
-                    disabled={loading === "" ? false : true}
+
                   >
                     Save and Close
                   </button>
                   <button
                     className="w-[230px] py-2 md:py-0 h-fit md:h-[44px] rounded-[10px] bg-red-500 text-white  font-[500] text-[12px] xs:text-[14px] md:text-[18px] leading-[21px] text-center"
                     onClick={() => save("new")}
-                    disabled={loading === "" ? false : true}
+
                   >
                     Save and New
                   </button>
