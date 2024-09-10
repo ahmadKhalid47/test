@@ -1,19 +1,4 @@
-import check from "@/public/check.svg";
-import arrows from "@/public/arrows.svg";
-import edit from "@/public/Layer_1 (2).svg";
-import deleteIcon from "@/public/Group 9.svg";
-import Link from "next/link";
-import Pagination from "@mui/material/Pagination";
-import Stack from "@mui/material/Stack";
 import { useState, useEffect } from "react";
-import axios from "axios";
-import { SmallLoader } from "@/app/Components/Loader";
-import { RootState } from "@/app/store";
-import { useSelector } from "react-redux";
-import { setVehicleDataReloader } from "@/app/store/Global";
-import { setAllValues } from "@/app/store/Vehicle";
-import { useDispatch } from "react-redux";
-import { useRouter } from "next/navigation";
 import { FaAsterisk, FaTimes } from "react-icons/fa";
 
 interface dataType {
@@ -21,7 +6,6 @@ interface dataType {
 }
 
 export default function ListView({ data }: dataType) {
-  let global = useSelector((state: RootState) => state.Global);
   const [popup, setPopup] = useState(false);
   const [deleteManyPopup, setDeleteManyPopup] = useState(false);
   const [editPopup, setEditPopup] = useState(false);
@@ -33,19 +17,11 @@ export default function ListView({ data }: dataType) {
   const [page, setPage] = useState(1);
   const [sortedData, setSortedData] = useState(data);
   const [make, setMake] = useState("");
-  const dispatch = useDispatch();
-  const router = useRouter();
 
   useEffect(() => {
     setSortedData(data);
   }, [data]);
-  const itemsPerPage = 12;
-
-  const handleChange = (event: any, value: any) => {
-    setPage(value);
-  };
-
-  const totalPages = Math.ceil(sortedData.length / itemsPerPage);
+  const itemsPerPage = 20;
 
   // Slice the data for the current page
   const paginatedData = sortedData.slice(
@@ -53,93 +29,6 @@ export default function ListView({ data }: dataType) {
     page * itemsPerPage
   );
 
-  function PaginationRounded() {
-    return (
-      <Stack spacing={2}>
-        <Pagination
-          count={totalPages}
-          shape="rounded"
-          page={page}
-          onChange={handleChange}
-          sx={{
-            "& .MuiPaginationItem-root": {
-              "&.Mui-selected": {
-                backgroundColor: "#242e69",
-                color: "white",
-                "&:hover": {
-                  opacity: 0.8,
-                },
-              },
-            },
-          }}
-        />
-      </Stack>
-    );
-  }
-
-  async function deleteItem(_id: any) {
-    try {
-      setDeleteLoading(true);
-      let result: any = await axios.delete(`/api/deleteMake/${_id}`);
-      console.log(result);
-      dispatch(setVehicleDataReloader(global.vehicleDataReloader + 1));
-    } catch (err) {
-      console.log(err);
-    } finally {
-      setDeleteLoading(false);
-      setPopup(false);
-      setItemToDelete(null);
-    }
-  }
-
-  async function deleteManyItem() {
-    try {
-      setDeleteLoading(true);
-      let result: any = await axios.post(`/api/deleteManyMake`, {
-        _ids: itemToDeleteMany,
-      });
-      console.log(result);
-      dispatch(setVehicleDataReloader(global.vehicleDataReloader + 1));
-    } catch (err) {
-      console.log(err);
-    } finally {
-      setDeleteLoading(false);
-      setPopup(false);
-      setItemToDelete(null);
-    }
-  }
-
-  async function editItem(_id: any) {
-    try {
-      setEditLoading(true);
-      let result: any = await axios.post(`/api/updateMake/${_id}`, {
-        make,
-      });
-      console.log(result);
-      dispatch(setVehicleDataReloader(global.vehicleDataReloader + 1));
-    } catch (err) {
-      console.log(err);
-    } finally {
-      setEditLoading(false);
-      setEditPopup(false);
-      setItemToEdit(null);
-    }
-  }
-  function handlePushItem(_id: any) {
-    setItemToDeleteMany((prevArray: any) => {
-      // Check if the item is already present in the array
-      const isPresent = prevArray.includes(_id);
-
-      // Return a new array with the item either added or removed
-      if (isPresent) {
-        // Remove the item
-        return prevArray.filter((item: any) => item !== _id);
-      } else {
-        // Add the item
-        return [...prevArray, _id];
-      }
-    });
-  }
   const allIds = data.map((item: any) => item?._id);
 
   return (
@@ -200,9 +89,6 @@ export default function ListView({ data }: dataType) {
                         ? "bg-main-blue"
                         : ""
                     } border-2 border-dark-grey`}
-                    onClick={() => {
-                      handlePushItem(item?._id);
-                    }}
                   ></div>
                 </div>
                 <h5 className="text-start pe-5 w-[7%]">
@@ -219,7 +105,7 @@ export default function ListView({ data }: dataType) {
                   }}
                 >
                   <img
-                    src={edit.src}
+                    // src={edit.src}
                     className="cursor-pointer"
                     onClick={() => {
                       setEditPopup(true);
@@ -229,7 +115,7 @@ export default function ListView({ data }: dataType) {
                   />
 
                   <img
-                    src={deleteIcon.src}
+                    // src={deleteIcon.src}
                     className="cursor-pointer"
                     onClick={() => {
                       setPopup(true);
@@ -259,12 +145,8 @@ export default function ListView({ data }: dataType) {
                       </button>
                       <button
                         className="w-[140px] py-2 md:py-0 h-fit md:h-[44px] rounded-[10px] bg-main-blue text-white  font-[500] text-[12px] xs:text-[14px] md:text-[18px] leading-[21px] text-center"
-                        onClick={() => {
-                          deleteItem(itemToDelete);
-                        }}
                         disabled={deleteLoading}
                       >
-                        {deleteLoading ? <SmallLoader /> : "Yes"}
                       </button>
                     </div>
                   </div>
@@ -291,12 +173,8 @@ export default function ListView({ data }: dataType) {
                       </button>
                       <button
                         className="w-[140px] py-2 md:py-0 h-fit md:h-[44px] rounded-[10px] bg-main-blue text-white  font-[500] text-[12px] xs:text-[14px] md:text-[18px] leading-[21px] text-center"
-                        onClick={() => {
-                          deleteManyItem();
-                        }}
                         disabled={deleteLoading}
                       >
-                        {deleteLoading ? <SmallLoader /> : "Yes"}
                       </button>
                     </div>
                   </div>
@@ -340,10 +218,8 @@ export default function ListView({ data }: dataType) {
                       </button>
                       <button
                         className="w-[230px] py-2 md:py-0 h-fit md:h-[44px] rounded-[10px] bg-main-blue text-white  font-[500] text-[12px] xs:text-[14px] md:text-[18px] leading-[21px] text-center"
-                        onClick={() => editItem(itemToEdit)}
                         disabled={editLoading}
                       >
-                        {editLoading ? <SmallLoader /> : "Update and Close"}
                       </button>
                     </div>
                   </div>
@@ -359,7 +235,6 @@ export default function ListView({ data }: dataType) {
           {Math.min(page * itemsPerPage, data.length)} of {data.length} data{" "}
         </div>
         <div className="font-[600] text-[10px] sm:text-[14px] leading-[17px]">
-          <PaginationRounded />
         </div>
       </div>
     </div>
