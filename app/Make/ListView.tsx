@@ -56,7 +56,7 @@ export default function ListView({ data }: dataType) {
             <div className="text-center w-[6%] flex justify-center items-center ">
               <div
                 className={`w-[15px] h-[15px] rounded-[1px] ${
-                  itemToDeleteMany.length !== data.length ? "" : "bg-main-blue"
+                  itemToDeleteMany.length !== data.length ? "" : "bg-red-500"
                 } border-2 border-dark-grey`}
                 onClick={() => {
                   setItemToDeleteMany(
@@ -86,7 +86,7 @@ export default function ListView({ data }: dataType) {
                   <div
                     className={`w-[15px] h-[15px] rounded-[1px] ${
                       itemToDeleteMany?.includes(item?._id)
-                        ? "bg-main-blue"
+                        ? "bg-red-500"
                         : ""
                     } border-2 border-dark-grey`}
                   ></div>
@@ -144,7 +144,7 @@ export default function ListView({ data }: dataType) {
                         No
                       </button>
                       <button
-                        className="w-[140px] py-2 md:py-0 h-fit md:h-[44px] rounded-[10px] bg-main-blue text-white  font-[500] text-[12px] xs:text-[14px] md:text-[18px] leading-[21px] text-center"
+                        className="w-[140px] py-2 md:py-0 h-fit md:h-[44px] rounded-[10px] bg-red-500 text-white  font-[500] text-[12px] xs:text-[14px] md:text-[18px] leading-[21px] text-center"
                         disabled={deleteLoading}
                       >
                       </button>
@@ -172,7 +172,7 @@ export default function ListView({ data }: dataType) {
                         No
                       </button>
                       <button
-                        className="w-[140px] py-2 md:py-0 h-fit md:h-[44px] rounded-[10px] bg-main-blue text-white  font-[500] text-[12px] xs:text-[14px] md:text-[18px] leading-[21px] text-center"
+                        className="w-[140px] py-2 md:py-0 h-fit md:h-[44px] rounded-[10px] bg-red-500 text-white  font-[500] text-[12px] xs:text-[14px] md:text-[18px] leading-[21px] text-center"
                         disabled={deleteLoading}
                       >
                       </button>
@@ -217,7 +217,7 @@ export default function ListView({ data }: dataType) {
                         <FaTimes />
                       </button>
                       <button
-                        className="w-[230px] py-2 md:py-0 h-fit md:h-[44px] rounded-[10px] bg-main-blue text-white  font-[500] text-[12px] xs:text-[14px] md:text-[18px] leading-[21px] text-center"
+                        className="w-[230px] py-2 md:py-0 h-fit md:h-[44px] rounded-[10px] bg-red-500 text-white  font-[500] text-[12px] xs:text-[14px] md:text-[18px] leading-[21px] text-center"
                         disabled={editLoading}
                       >
                       </button>
