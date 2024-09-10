@@ -1,10 +1,10 @@
-import connectDb from "@/app/models/connectDb";
+import connectDb from "../../models/connectDb";
 import MakeModel from "@/app/models/Make";
 import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
   try {
-    let {make} = await req.json();
+    let { make } = await req.json();
     console.log(make);
 
     connectDb();
