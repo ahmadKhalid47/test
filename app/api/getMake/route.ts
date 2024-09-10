@@ -3,8 +3,8 @@ import MakeModel from "../../models/Make";
 import { NextResponse } from "next/server";
 
 export async function GET() {
-  connectDb();
   try {
+    await connectDb();
     const data = await MakeModel.find();
     return  NextResponse.json({ data });
   } catch (err) {
