@@ -1,4 +1,3 @@
-import { FaAsterisk, FaTimes } from "react-icons/fa";
 import React from "react";
 import { useState, useEffect } from 'react';
 

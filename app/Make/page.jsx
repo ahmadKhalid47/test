@@ -1,5 +1,4 @@
 "use client";
-import { FaAsterisk, FaTimes } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import ListView from "./ListView";
@@ -85,7 +84,6 @@ export default function Vehicles() {
                 >
                   <label className="flex justify-start gap-1 items-start font-[600] text-[14px] leading-[17px]">
                     {"Add New"}
-                    <FaAsterisk className="text-[6px] text-red-600" />
                   </label>
                   <div className="w-full h-fit flex justify-between items-center relative overflow-hidden">
                     <input
@@ -111,7 +109,6 @@ export default function Vehicles() {
                       setMake("");
                     }}
                   >
-                    <FaTimes />
                   </button>
                   <button
                     className="w-[230px] py-2 md:py-0 h-fit md:h-[44px] rounded-[10px] bg-red-500 text-white  font-[500] text-[12px] xs:text-[14px] md:text-[18px] leading-[21px] text-center"
