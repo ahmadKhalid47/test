@@ -2,7 +2,7 @@ import MakeModel from "@/app/models/Make";
 import connectDb from "@/app/registration/connectDb";
 import { NextResponse } from "next/server";
 
-export async function GET() {
+export const GET = async () => {
   try {
     await connectDb();
     const data = await MakeModel.find();
@@ -17,4 +17,4 @@ export async function GET() {
       { status: 500 }
     );
   }
-}
+};

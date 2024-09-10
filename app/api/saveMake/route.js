@@ -2,7 +2,7 @@ import connectDb from "@/app/registration/connectDb";
 import MakeModel from "../../models/Make";
 import { NextResponse } from "next/server";
 
-export async function POST(req) {
+export const POST = async (req) => {
   try {
     let { make } = await req.json();
     connectDb();
@@ -16,4 +16,4 @@ export async function POST(req) {
       error: "Can't process your request at the moment",
     });
   }
-}
+};
