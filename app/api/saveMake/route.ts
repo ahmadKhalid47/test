@@ -1,4 +1,4 @@
-import connectDb from "../../models/connectDb";
+import connectDb from "@/app/registration/connectDb";
 import MakeModel from "../../models/Make";
 import { NextResponse } from "next/server";
 
