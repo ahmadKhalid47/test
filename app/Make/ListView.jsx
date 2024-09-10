@@ -18,7 +18,7 @@ export default function ListView(data ) {
   const itemsPerPage = 100;
 
   // Slice the data for the current page
-  const paginatedData = sortedData.slice(
+  const paginatedData = sortedData?.slice(
     (page - 1) * itemsPerPage,
     page * itemsPerPage
   );
