@@ -1,21 +1,13 @@
 import connectDb from "../../models/connectDb";
 import MakeModel from "../../models/Make";
 import { NextResponse } from "next/server";
-
-// Disable cache for this API route
 export const fetchCache = "force-no-store";
 
 export async function GET() {
+  connectDb();
   try {
-    await connectDb();
     const data = await MakeModel.find();
-
-    const response = NextResponse.json({ data });
-
-    // Ensure no cache
-    response.headers.set("Cache-Control", "no-store, max-age=0");
-
-    return response;
+    return  NextResponse.json({ data });
   } catch (err) {
     console.log("err: ", err);
     return NextResponse.json(
