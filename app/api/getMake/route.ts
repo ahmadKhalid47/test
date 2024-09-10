@@ -1,18 +1,19 @@
+import MakeModel from "@/app/models/Make";
 import connectDb from "@/app/registration/connectDb";
-import MakeModel from "../../models/Make";
 import { NextResponse } from "next/server";
 
 export async function GET() {
   try {
     await connectDb();
     const data = await MakeModel.find();
-    return NextResponse.json({ data });
+    return NextResponse.json(
+      { data },
+      { status: 200, headers: { "Cache-Control": "no-store" } }
+    );
   } catch (err) {
     console.log("err: ", err);
     return NextResponse.json(
-      {
-        error: "Can't process your request at the moment",
-      },
+      { error: "Can't process your request at the moment" },
       { status: 500 }
     );
   }
