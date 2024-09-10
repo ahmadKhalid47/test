@@ -3,7 +3,7 @@ import { FaAsterisk, FaTimes } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import ListView from "./ListView";
-
+ 
 export default function Vehicles() {
   const [loading, setLoading] = useState<any>("");
   const [dataLoading, setDataLoading] = useState<any>(true);
