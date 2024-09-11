@@ -1,6 +1,7 @@
 import React from "react";
 import { useState, useEffect } from 'react';
 export const dynamic = "force-dynamic";
+export const revalidate =1;
 
 export default function ListView(data ) {
   const [popup, setPopup] = useState(false);
@@ -14,12 +15,6 @@ export default function ListView(data ) {
     setSortedData(data);
   }, [data]);
   const itemsPerPage = 100;
-
-  // Slice the data for the current page
-  // const paginatedData = sortedData?.slice(
-  //   (page - 1) * itemsPerPage,
-  //   page * itemsPerPage
-  // );
 console.log(sortedData);
 
   return (

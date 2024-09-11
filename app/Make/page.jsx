@@ -4,6 +4,7 @@ import axios from "axios";
 import ListView from "./ListView";
 import React from "react";
 export const dynamic = "force-dynamic";
+export const revalidate = 1;
 
 export default function Vehicles() {
   const [vehiclesData, setVehiclesData] = useState([]);
