@@ -31,7 +31,7 @@ useEffect(() => {
       }
 
       const result = await response.json();
-      setVehiclesData(result.data.data);
+      setVehiclesData(result?.data);
     } catch (error) {
       console.log(error);
     }
