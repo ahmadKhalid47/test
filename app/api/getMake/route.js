@@ -1,5 +1,5 @@
-import MakeModel from "@/app/models/Make";
-import connectDb from "@/app/registration/connectDb";
+import MakeModel from "../../models/Make";
+import connectDb from "../../registration/connectDb";
 import { NextResponse } from "next/server";
 
 export const GET = async () => {

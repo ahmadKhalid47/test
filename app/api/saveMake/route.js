@@ -1,5 +1,5 @@
-import connectDb from "@/app/registration/connectDb";
 import MakeModel from "../../models/Make";
+import connectDb from "../../registration/connectDb";
 import { NextResponse } from "next/server";
 
 export const POST = async (req) => {
