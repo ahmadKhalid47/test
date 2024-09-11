@@ -16,19 +16,28 @@ export default function Vehicles() {
     setPopup(true);
   };
 
-  useEffect(() => {
-    async function getData() {
-      try {
-        const result = await axios.get("/api/getMake", {
-          headers: { "Cache-Control": "no-store" }, // Prevent caching
-        });
-        setVehiclesData(result.data.data);
-      } catch (error) {
-        console.log(error);
+useEffect(() => {
+  async function getData() {
+    try {
+      const response = await fetch("/api/getMake", {
+        headers: {
+          "Cache-Control": "no-store", // Prevent caching
+        },
+        revalidate: 0, // Revalidate immediately (if your backend supports this option)
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch data");
       }
+
+      const result = await response.json();
+      setVehiclesData(result.data.data);
+    } catch (error) {
+      console.log(error);
     }
-    getData();
-  }, [reloader]);
+  }
+  getData();
+}, [reloader]);
 
   async function save(action) {
     if (make.trim() === "") {
