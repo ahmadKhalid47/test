@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect } from 'react';
-
+export const dynamic = "force-dynamic";
 
 export default function ListView(data ) {
   const [popup, setPopup] = useState(false);
