@@ -8,13 +8,25 @@ export const GET = async () => {
     const data = await MakeModel.find();
     return NextResponse.json(
       { data },
-      { status: 200, headers: { "Cache-Control": "no-store" } }
+      {
+        status: 200,
+        headers: {
+          "Cache-Control":
+            "no-store, no-cache, must-revalidate, proxy-revalidate",
+        },
+      }
     );
   } catch (err) {
     console.log("err: ", err);
     return NextResponse.json(
       { error: "Can't process your request at the moment" },
-      { status: 500 }
+      {
+        status: 500,
+        headers: {
+          "Cache-Control":
+            "no-store, no-cache, must-revalidate, proxy-revalidate",
+        },
+      }
     );
   }
 };

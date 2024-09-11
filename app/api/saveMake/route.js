@@ -7,13 +7,31 @@ export const POST = async (req) => {
     let { make } = await req.json();
     connectDb();
     await new MakeModel({ make }).save();
-    return NextResponse.json({
+
+    const response = NextResponse.json({
       success: "User Created",
     });
+
+    // Set cache control headers to prevent caching
+    response.headers.set(
+      "Cache-Control",
+      "no-store, no-cache, must-revalidate, proxy-revalidate"
+    );
+
+    return response;
   } catch (err) {
     console.log("err: ", err);
-    return NextResponse.json({
+
+    const errorResponse = NextResponse.json({
       error: "Can't process your request at the moment",
     });
+
+    // Set cache control headers for error response as well
+    errorResponse.headers.set(
+      "Cache-Control",
+      "no-store, no-cache, must-revalidate, proxy-revalidate"
+    );
+
+    return errorResponse;
   }
 };
